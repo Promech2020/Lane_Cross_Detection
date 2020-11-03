@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .imageRow {
+                width: 100%;
+                margin-top: 5mm;
+                margin-bottom: 5mm;
+            }
+
+            .imageBlock {
+                background-color: #f3e5e5;
+                border-radius: 5mm;
+                width: 20%;
+                /* margin: 0 auto; */
+                float: left;
+                margin: 5mm;
+            }
+            .img {
+                border-top-right-radius: 3mm;
+                border-top-left-radius: 3mm;
+                width: 100%;
+                margin-bottom: 2mm;
+            }
+            .labelBlock{
+                width: 100%;
+                padding-left: 5mm;
+            }
+            .label {
+                color: #000;
+            }
+            .thumbnail:hover {
+                transform: scale(3);
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            }
+            .clearfix::after {
+                /* content: ""; */
+                clear: both;
+                display: table;
+            }
+            .showContainer {
+                /* background-color: #9AFEFF; */
+                margin-top: 5mm;
+                margin-bottom: 5mm;
+                /* padding: 10mm; */
+            }
+            .titleBlock {
+                background-color: white;
+                width: 100%;
+                padding-left: 5mm;
+                padding-top: 2mm;
+                border-radius: 2mm;
+                border: 1mm;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class = "showContainer">
+            <div class="titleBlock">
+                <label>Detected Vehicle</label>
+            </div>
+            <div class="clearfix">
+                    {% for name, imageTime in detectVehicle.items() %}
+                        <div class = "imageRow">
+                            <div class = "imageBlock">
+                                <img class= "img thumbnail" src="{{ url_for('static', filename='output/temp/' + name + '.png') }}" height="150" >
+                                <div class="labelBlock">
+                                    <label class="label">Name: {{name}}</label><br>
+                                    <label class="label">Time: {{imageTime}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+    
+            </div>
+        </div>
+    </body>
+</html>
+    
