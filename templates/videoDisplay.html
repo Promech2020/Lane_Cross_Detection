@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Traffic rule</title>
+  <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+  <link rel="stylesheet" href="/static/styles.css">
+  <link rel="stylesheet" href="/static/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/bootstrap-social.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/woff2.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/all.css">
+
+  <style>
+      .streamVideo {
+          border-radius: 3mm;
+          margin-bottom: 5mm;
+      }
+  </style>
+</head>
+
+<body style = "background: #D8D8D8;">
+	<nav class = "navbar navbar-dark navbar-expand-sm fixed-top">
+        <div class = "container">
+            <button class = "navbar-toggler" type = "button" data-toggle = "collapse" data-target = "#Navbar">   <!-- to collapse the navbar into button for the small screen like mobiles -->
+                <span class = "navbar-toggler-icon"></span>
+            </button>
+            <a class = "navbar-brand mr-auto" href = "/"><img src="/static/img/promech.png" height = "30" width = "41"></a>
+            <div class = "collapse navbar-collapse" id = "Navbar">
+                <ul class = "navbar-nav mr-auto">
+                    <li class = "nav-item active"><a class = "nav-link" href="/"><span class = "fas fa-home fa-lg"></span> Home</a></li>
+                    <!-- <li class = "nav-item"><a class = "nav-link" href="/aboutus"><span class = "fas fa-info fa-lg"></span> About</a></li> -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="jumbotron-1">
+        <div class="container">
+            <div class="row row-header">
+                <div class="col-12 col-sm-6">
+                    <h1>Lane Line Violation</h1>
+                    <p>The system Detect the vehicle violating the lane line rule</p>
+                </div>
+                <div class="col-12 col-sm align-self-center">
+                    <img src="/static/img/promech.png" class = "img-fluid" height="100" width="100">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class = "container">
+        <div class = "row">
+            <ol class = "col-12 breadcrumb">
+                <li class = "breadcrumb-item"><a href="/">Home</a></li>
+                <li class = "breadcrumb-item active">Video</li>
+            </ol>
+            <div class = "col-12 col-sm-12">
+               <h3>Video</h3>
+               <hr>
+            </div>
+        </div>
+        <div class = "row">
+            <div class="col-12 col-md-10">
+                <form>
+                    <div class = "form-group row">
+                        <label class = "col-md-12 col-form-label"><h1 style= "color: #505050;">Lane Line Violation</h1></label>
+                    </div>
+                    <form method = "POST">
+                        <div class = "form-group row">
+                            <div class = "col-md-10">
+                                <a class="myButton btn btn-success" style=" text-decoration: none; "><span style=" font-weight: 400; font-family: 'Open Sans', Helvetica;  "> ShowLine </span></a>
+                                <label class = "col-md-2 col-form-label" id="lineShow" style= "color: #808080; font-weight: 400; font-size: 30px;"><span >{{lineState}}</span></label>
+                            </div>
+                        </div>
+                    </form>
+                    <img class = "streamVideo" src="{{ url_for('displayVideo') }}" height="450" width = "930">
+                    </div>
+                </form>
+            </div>
+            <div style="height: 200;">
+                <div id="place_to_showImage"></div>
+            </div>
+        </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">             
+                <div class="col-4 offset-1 col-sm-2">
+                    <h5>Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="/">Home</a></li>
+                        <!-- <li><a href="/aboutus">About</a></li> -->
+                    </ul>
+                </div>
+                <div class="col-7 col-sm-5">
+                    <h5>Our Address</h5>
+                    <address>
+                      Jwagal, Patan 44600<br>
+                      Lalitpur<br>
+                      Nepal<br>
+                      <i class = "fa fa-phone fa-lg"></i>: +977 1-5261170<br>
+                      <!-- <i class = "fa fa-fax fa-lg"></i>: +977 1 4356789<br> -->
+                      <i class = "fa fa-envelope fa-lg"></i>: <a href="#">info@promechminds.com</a>
+                   </address>
+                </div>
+                <div class="col-12 col-sm-4 align-self-center">
+                    <div class="text-center">
+                        <!-- <a class = "btn btn-social-icon btn-google" href="http://google.com/+"><span class="fab fa-google-plus-g fa-lg"></span></a> -->
+                        <a class = "btn btn-social-icon btn-facebook" href="https://www.facebook.com/promechminds/"><span class = "fab fa-facebook-f fa-lg"></span></a>
+                        <a class = "btn btn-social-icon btn-twitter" href="https://www.instagram.com/promechminds2018/?hl=en"><span class = "fab fa-instagram fa-lg"></span></a>
+                        <a class = "btn btn-social-icon btn-linkedin" href="https://www.linkedin.com/company/pro-mech-minds-engineering-services-pvt-ltd"><span class = "fab fa-linkedin-in fa-lg"></span></a>
+                        <!-- <a class = "btn btn-social-icon btn-google" href="http://youtube.com/"><span class = "fab fa-youtube fa-lg"></span></a> -->
+                    </div>
+                </div>
+            </div>
+           <div class="row justify-content-center">             
+                <div class="col-auto">
+                    <p>© Copyright 2020 Pro-Mech Minds</p>
+                </div>
+           </div>
+        </div>
+    </footer>
+		
+	<script src='/static/jquery.min.js'></script>
+    <script src="/static/index.js"></script>
+    <script type="text/javascript">
+
+        $(".myButton").click(function(){
+            $.ajax({
+                type: 'POST',
+                url: '/lineState',
+                data: $("#lineShow"),
+                success: function(msg){
+                    if(msg == "True"){
+                        $('#lineShow').text("Enabled").css('color', '#4DAF7C');
+                    }
+                    else{
+                        $('#lineShow').text("Disabled").css('color', '#808080');
+                    }            
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                  alert('!!! Error !!!');
+                }
+            });
+        });
+    </script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    setInterval("ajaxd()",5000); // call every 10 seconds
+});
+
+function ajaxd() { 
+    $("#place_to_showImage").load("/displayImage");
+}
+</script>
+
+</body>
+</html>
