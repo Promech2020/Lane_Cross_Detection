@@ -129,8 +129,14 @@ You can view the full predicted video by opening the “test.avi” video.
 
 <p align="center"><img src="./support_images/14.png" width="640"\></p>
 
+# Output Video
+
+You can watch the output video from the link given below:
+
+Link: https://drive.google.com/file/d/1czA68CMOCIGkutx9444xUhz2333BTT_R/view?usp=sharing
+
 # Demo Video
 
-You can Download the demo video from the link given below:
+You can watch the demo video from the link given below:
 
 Link: https://drive.google.com/file/d/1NhtUAuDXu4b7wRawUptRKpFZtMRHOSIF/view?usp=sharing
