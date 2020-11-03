@@ -27,9 +27,23 @@ Link: https://www.youtube.com/watch?v=UqkT2Ml9beg
 
 After creating a virtual environment, you need to install packages listed in requirements.txt in that environment. You can use following command to install all the packages listed in requirements.txt file:
 
-pip install -r requirements.txt
+> pip install -r requirements.txt
 
 Along with this, we need to install an IDE. It is not mandatory but preferred for the long run. There are a lot of IDEs, but I personally prefer VS Code.
+
+# Model
+
+Download the Line Detection model from the link given below:
+
+Link: https://drive.google.com/file/d/1_pnj0mY9_O4vLK49VL0ilJY-ahzakUE2/view?usp=sharing
+
+Save the Line detection model to "line_weight" folder.
+
+Download pretrained YOLOV3 model zip file from the link given below:
+
+Link: https://drive.google.com/file/d/1Psmc33O7_YwzYECoBZnFXwbnVQtL8m62/view?usp=sharing 
+
+Extract the zip file in the root directory.
 
 # How to run the program?
 
