@@ -77,7 +77,7 @@ Then, click detect bottom to start detection.
 
 You can see the detected light red lane line drawn on the streaming video.
 
-<p align="center"><img src="./support_images/8.png" width="640"\></p>
+<p align="center"><img src="./support_images/8.PNG" width="640"\></p>
 
 ## Show Lane Line
 
@@ -95,13 +95,13 @@ You can enable and disable the drawn light red lane line by clicking showline.
 
 The vehicle that crosses the lane line upto drawn light red lane line will be detected and surrounded by red bounding box.
 
-<p align="center"><img src="./support_images/11.png" width="640"\></p>
+<p align="center"><img src="./support_images/11.PNG" width="640"\></p>
 
 ## Detected Vehicle
 
 Each vehicle has a unique name or Id. The detected vehicles images are shown below the streaming video with its unique name and the time of violation.
 
-<p align="center"><img src="./support_images/12.png" width="640"\></p>
+<p align="center"><img src="./support_images/12.PNG" width="640"\></p>
 
 ## Save Images of Detected Vehicles
 
