@@ -120,18 +120,17 @@ def get_boundary():
     b = execute.y
     c = execute.w
     d = execute.h
+    # print("a: ", a)
+    # print("b: ", b)
+    # print("c: ", c)
+    # print("d: ", d)
     return(a, b, c, d)
-
-# def opPath():
-#     opPth = execute.outputPath
-#     return(opPth)
 
 def execute(image, x, y, w, h):
     execute.x = x
     execute.y = y
     execute.w = w
     execute.h = h
-    # execute.outputPath = outputPath
     test_images = image
     color_selected_images = list(map(HSL_color_selection, test_images))
     gray_images = list(map(gray_scale, color_selected_images))
