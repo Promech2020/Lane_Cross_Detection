@@ -76,9 +76,6 @@ size = (1920,1080)
 dt = datetime.datetime.now()
 date = str(dt.year) + "_" + str(dt.month) + "_" + str(dt.day)
 datepath = os.path.join("static/output", date)
-# datep = os.path.isdir(datepath)
-# if datep != True:
-#     os.mkdir(datepath)
 out = None
 
 
@@ -225,23 +222,6 @@ class VideoCamera(object):
         y2 = int(y2)
         return ((x1, y1), (x2, y2))
 
-    # # Just for display not necessary
-    # def draw_lines(self, image, lines, color = [255, 0, 0]):
-    #     """
-    #     Draw lines onto the input image.
-    #         Parameters:
-    #             image: An np.array compatible with plt.imshow.
-    #             lines: The lines we want to draw.
-    #             color (Default = red): Line color.
-    #             thickness (Default = 2): Line thickness.
-    #     """
-    #     image = np.copy(image)
-    #     for line in lines:
-    #         for x1,y1,x2,y2 in line:
-    #             cv2.line(image, (x1, y1), (x2, y2), color)
-    #     return image
-    # # unnecessary
-
     def lane_lines(self, image, lines):
         """
         Create full lenght lines from pixel points.
@@ -312,11 +292,8 @@ class VideoCamera(object):
         # date = str(dt.year) + "_" + str(dt.month) + "_" + str(dt.day)
         tm = str(dt.strftime("%H:%M:%S"))
         global datepath
-        datep = os.path.isdir(datepath)
         vechiclepath = os.path.join(datepath, str(track.track_id))
         vechiclep = os.path.isdir(vechiclepath)
-        if datep != True:
-            os.mkdir(datepath)
         if vechiclep != True:
             os.mkdir(vechiclepath)
 
@@ -412,11 +389,15 @@ class VideoCamera(object):
             self.video.release()
         
         else:
-            if out is None:
-                global datepath
-                out = cv2.VideoWriter(datepath + '/' + 'test.avi',cv2.VideoWriter_fourcc(*'DIVX'), 15, size)
-
             cv2.ocl.setUseOpenCL(False)
+            global datepath
+            datep = os.path.isdir(datepath)
+            if datep != True:
+                os.mkdir(datepath)
+            if out is None:
+                # global datepath
+                out = cv2.VideoWriter(datepath + '/' + 'test.avi',cv2.VideoWriter_fourcc(*'DIVX'), 30, size)
+
             global hough_lines
             global frameIndex
             global line
@@ -428,7 +409,6 @@ class VideoCamera(object):
                 boxes, confidences, class_ids = self.perform_detection(net, imgLine, output_layers, w, h, 0.2)
                 imgLine = self.draw_boxes(boxes, confidences, class_ids, clas, imgLine, 0.2, 0.4)
                 gtLine = get_line.getLine(imgLine)
-                # print("Get Line: ",gtLine)
                 if(gtLine is not None):
                     image, lg_x, lg_y, lg_w, lg_h = gtLine
                     test_image = [image]
@@ -441,7 +421,6 @@ class VideoCamera(object):
                             continue
                         else:
                             line = retline
-                        # cv2.imwrite("static/output/image/line" + str(frameIndex) + ".png", self.draw_lines(img, lines))
 
             imageCopy = img.copy()
             height, width, layers = img.shape
@@ -498,7 +477,6 @@ class VideoCamera(object):
                     for rLine in rLines:
                         if(len(line)!=0):
                             if (self.intersect(rLine[0], rLine[1], line[0][0], line[0][1]) or self.intersect(rLine[0], rLine[1], line[1][0], line[1][1])):
-                                # imagecp = img.copy()
                                 cv2.rectangle(img, (int(bbox[0]),int(bbox[1])), (int(bbox[2]),int(bbox[3])), (0, 0, 255), 2)
                                 imgVec, crop, tm, vechiclepath, tempPathOut = self.frame_save(int(bbox[0]), int(bbox[1]), int(bbox[2]), int(bbox[3]), (0, 0, 255), imageCopy, track)
                                 self.sframe(imgVec, crop, tm, vechiclepath, tempPathOut)
@@ -511,10 +489,9 @@ class VideoCamera(object):
 
                     frameIndex += 1
                     lineDisplay = self.getLineState()
-                    if (lineDisplay == True):
+                    if(lineDisplay == True):
                         img = self.draw_lane_lines(img, line)
 
-            # img_array.append(img)
             out.write(img)
 
             # encode OpenCV raw frame to jpg and displaying it

@@ -7,7 +7,7 @@ from utility_tools import line_de
 import os
 from utility_tools.get_videos import lineState
 
-VIDEO_FOLDER = 'E:/Series/flaskApp/data/video/temporary/'
+VIDEO_FOLDER = 'data/video/temporary/'
 # ALLOWED_EXTENSIONS = {'mp4'}
 app = Flask(__name__)
 app.config['videoPath'] = VIDEO_FOLDER
