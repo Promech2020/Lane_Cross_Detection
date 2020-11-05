@@ -21,6 +21,7 @@ from os import path
 import time
 from utility_tools import line_de
 from utility_tools import get_line
+from config import config
 
 lineState = True
 
@@ -67,15 +68,15 @@ def yolov3(yolo_weights, yolo_cfg, coco_names):
 
     return net, clas, output_layers
 
-net, clas, output_layers = yolov3("weights/yolov3.weights", "weights/yolov3.cfg", 'data/labels/coco.names')
+net, clas, output_layers = yolov3(config.yoloWeightPath, config.yoloCfgPath, config.yoloClassPath)
 
-class_names = [c.strip() for c in open('data/labels/coco.names').readlines()]
+class_names = [c.strip() for c in open(config.yoloClassPath).readlines()]
 yolo = YoloV3(classes=len(class_names))
-yolo.load_weights('weights/yolov3.tf')
-size = (1920,1080)
+yolo.load_weights(config.objWeightPath)
+size = config.size
 dt = datetime.datetime.now()
 date = str(dt.year) + "_" + str(dt.month) + "_" + str(dt.day)
-datepath = os.path.join("static/output", date)
+datepath = os.path.join(config.datepth, date)
 out = None
 
 
@@ -83,7 +84,7 @@ max_cosine_distance = 0.5
 nn_budget = None
 nms_max_overlap = 0.8
 
-model_filename = 'model_data/mars-small128.pb'
+model_filename = config.modelFileName
 encoder = gdet.create_box_encoder(model_filename, batch_size=1)
 metric = nn_matching.NearestNeighborDistanceMetric('cosine', max_cosine_distance, nn_budget)
 tracker = Tracker(metric)
@@ -322,7 +323,7 @@ class VideoCamera(object):
                 lgCropWidth = cropWidth
                 dispImgTemp = crop.copy()
                 tempTime = tm
-                cv2.imwrite("static/output/temp/" + imageName + ".png", dispImgTemp)
+                cv2.imwrite(config.tempImagePath + imageName + ".png", dispImgTemp)
                 detectVehicle[str(imageName)] = tempTime
 
         return(imagecp, crop, tm, vechiclepath, tempPathOut)
@@ -379,7 +380,7 @@ class VideoCamera(object):
             tempPathOut.release()
             global imageName
             global dispImgTemp
-            cv2.imwrite("static/output/temp/" + imageName + ".png", dispImgTemp)
+            cv2.imwrite(config.tempImagePath + imageName + ".png", dispImgTemp)
             detectVehicle[str(imageName)] = tempTime
             imageName = None
             dispImgTemp = None

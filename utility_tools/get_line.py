@@ -1,14 +1,15 @@
 import numpy as np
 import cv2
+from config import config
 
 def getLine(img):
     # load model
-    net = cv2.dnn.readNet('line_weight/yolov3_training_final.weights', 'line_weight/yolov3_testing.cfg')
+    net = cv2.dnn.readNet(config.lineWeightPath, config.lineCfgPath)
 
 
     # Get all the trained classes
     classes = []
-    with open("line_weight/classes.txt", "r") as f:
+    with open(config.lineClassPath, "r") as f:
         classes = f.read().splitlines()
 
     font = cv2.FONT_HERSHEY_PLAIN
